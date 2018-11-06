@@ -1,7 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+
     <router-view/>
+    <div class="footer">
+      <router-link to='/Home'>
+        <p>首页</p>
+      </router-link>
+      <router-link to='/List'>
+        <p>分类</p>
+      </router-link>
+      <router-link to='/Find'>
+        <p>发现</p>
+      </router-link>
+      <router-link to='/ShopCar'>
+        <p>购物车</p>
+      </router-link>
+      <router-link to='/User'>
+        <p>我的</p>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -13,12 +30,47 @@ export default {
 
 <style>
 @import url(../static/css/public.css);
+html,body {
+  height: 100%;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  position: relative;
+}
+.footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 0.53rem;
+  background: #f9f9f9;
+  position:fixed;
+  bottom: 0;
+}
+.footer a {
+  display: block;
+  flex :1;
+  text-align: center
+}
+.footer a p {
+  width: 100%;
+  height: 0.52rem;
+  background: url(../static/images/icon_nav.png) no-repeat 0px -2px ;
+  background-size:360px;
+  text-indent: -999em;
+  overflow: hidden;
+}
+.footer a.router-link-active p {
+  background-position-y : -52px;
+}
+.footer a:nth-of-type(2) p {
+  background-position-x: -75px;
+}
+.footer a:nth-of-type(3) p {
+  background-position-x: -145px;
+}
+.footer a:nth-of-type(4) p {
+  background-position-x: -215px;
+}
+.footer a:nth-of-type(5) p {
+  background-position-x: -285px;
 }
 </style>
