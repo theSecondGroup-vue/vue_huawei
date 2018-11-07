@@ -6,7 +6,6 @@ import List from '@/components/List'
 import Find from '@/components/Find'
 import ShopCar from '@/components/ShopCar'
 import User from '@/components/User'
-
 Vue.use(Router)
 
 export default new Router({
