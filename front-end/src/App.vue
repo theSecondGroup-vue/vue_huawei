@@ -26,8 +26,8 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App"
+};
 </script>
 
 <style scoped>
@@ -47,13 +47,13 @@ html,body {
   width: 100%;
   height: 0.53rem;
   background: #f9f9f9;
-  position:fixed;
+  position: fixed;
   bottom: 0;
 }
 .footer a {
   display: block;
-  flex :1;
-  text-align: center
+  flex: 1;
+  text-align: center;
 }
 .footer a p {
   width: 100%;
