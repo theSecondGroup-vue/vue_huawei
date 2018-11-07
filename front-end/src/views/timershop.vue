@@ -62,9 +62,9 @@ export default {
       var h = parseInt(countDowm / 1000 / 3600)
       var m = parseInt((countDowm / 1000 - h * 3600) / 60)
       var s = parseInt(countDowm / 1000 - h * 3600 - m * 60)
-      h = h > 10 ? h : '0' + h
-      m = m > 10 ? m : '0' + m
-      s = s > 10 ? s : '0' + s
+      h = h >= 10 ? h : '0' + h
+      m = m >= 10 ? m : '0' + m
+      s = s >= 10 ? s : '0' + s
       this.timerStr = h + ':' + m + ':' + s
     }
   },
