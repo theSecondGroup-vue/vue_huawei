@@ -61,6 +61,7 @@ html,body {
   background: url(../static/images/icon_nav.png) no-repeat 0px -0.02rem ;
   background-size:3.6rem;
   text-indent: -999em;
+  text-indent: -9.99rem;
   overflow: hidden;
 }
 .footer a.router-link-active p {
