@@ -1,8 +1,7 @@
 <template>
-  <!-- <div id="app"> -->
-
+  <div>
     <router-view/>
-    <!-- <div class="footerBox">
+   <div class="footerBox">
       <div class="footer">
         <router-link to='/Home'>
           <p>首页</p>
@@ -21,12 +20,11 @@
         </router-link>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
-
 <script>
 export default {
-  name: 'App'
+  //  name: 'xfooter'
 }
 </script>
 
@@ -58,7 +56,7 @@ html,body {
 .footer a p {
   width: 100%;
   height: 0.52rem;
-  background: url(../static/images/icon_nav.png) no-repeat 0px -0.02rem ;
+  background: url(../../static/images/icon_nav.png) no-repeat 0px -0.02rem ;
   background-size:3.6rem;
   text-indent: -999em;
   overflow: hidden;
