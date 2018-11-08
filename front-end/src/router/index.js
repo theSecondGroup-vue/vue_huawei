@@ -8,6 +8,7 @@ import ShopCar from '@/components/ShopCar'
 import User from '@/components/User'
 import main from '@/views/main'
 import Product from '@/components/Product'
+import login from '@/views/login'
 
 Vue.use(Router)
 
@@ -41,7 +42,8 @@ export default new Router({
         {
           path: 'User',
           name: 'User',
-          component: User
+          component: User,
+
         },
         {
           path: '',
@@ -53,6 +55,26 @@ export default new Router({
       path: '/Product',
       name: 'Product',
       component: Product
+    },
+    {
+      path:'/login',
+      name:'login',
+      component:login
+    },
+    {
+      path:'/register',
+      name:'register',
+      component:()=> import('@/views/register.vue')
+    },
+    {
+      path:'/register1',
+      name:'register1',
+      component:()=> import('@/views/register1.vue')
+    },
+    {
+      path:'/register2',
+      name:'register2',
+      component:()=> import('@/views/register2.vue')
     },
     {
       path: '/*',
