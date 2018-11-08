@@ -4,13 +4,13 @@
         
             <div id='login'>
                     <div id="login-head">
-                            <img src="images/wap_login_logo.png">
+                            <img src="../../static/images/wap_login_logo.png">
                             <h1>华为账号</h1>
                     </div>
                     <div id="login-center">
                         <form>
-                            <input type="text" placeholder="手机号/邮箱" id='phone'>
-                            <input type="password" placeholder='密码' id='psd'>
+                            <input type="text" placeholder="手机号/邮箱" id='phone' v-model="phone">
+                            <input type="password" placeholder='密码' id='psd' v-model="password" >
                             <span class="yj"></span>
                         </form>
                         <div id="line">
@@ -25,16 +25,20 @@
                             </dl>
                             
                         </div>
-                        <div class="btn">
-                            登录
+                        <div class="btns">
+                             <button class="btn" @click='handlelogin'>
+                                登录
+                            </button>
                         </div>
+                       
                         <div class="line1">
-                            <a href="#">注册账号</a>
+                            <a href="#/register">注册账号</a>
                             <a href="#">忘记密码</a>
                         </div>
                         <div class="line2">
-                            <!-- <a href=""><img src="images/wap_qq_emui9.png"></a> -->
-                            <!-- <a href=""><img src="images/wap_alipay_emui9.png"></a> -->
+                            <a href=""><img src="../../static/images/wap_qq_emui9.png"></a>
+                            <a href="#"><img src="../../static/images/wap_alipay_emui9.png"></a>
+                            
                         </div>
                         <div id="nothing">
                             <a href="#">更多</a>
@@ -65,10 +69,75 @@
 </template>
 <script>
     export default{
-        name:'login'
+        name:'login',
+        data(){
+            return{
+                phone:'',
+                password:'',
+                emial:'',
+                succ: true
+            }
+        },
+        methods:{
+            // isTrue () {
+            //     var phone = document.getElementById('phone');
+            //     phone.onblur = function () {
+            //     var phones = this.phone;
+            //     var phoneReg = /^1[34578]\d{9}$/;
+
+            //         if (phoneReg.test(phones) == true) {
+            //             phone.style.borderColor = 'green';
+            //             this.succ = true;
+            //         } else if (phoneReg.test(phones) == false) {
+            //             phone.style.borderColor = 'red';
+            //             this.succ = false;
+            //         }
+            //     }
+            // },
+            handlelogin(){
+                
+                this.$axios.post('http://localhost:3000/login',{
+                    phone:this.phone,
+                      password:this.password
+
+                    },{
+                  
+                   
+                }).then(result =>{
+                    var res=result.data;
+                    console.log(res);
+                    if(res.code===0){
+                        // alert('登陆成功')
+                        localStorage.setItem('phone',this.phone)
+                        this.$router.push({name:'Home'})
+                    }else{
+                        alert('登录失败',res.msg)
+                    }
+                })
+            }
+        },
+        mounted () {
+            // this.isTrue();
+        },
+        watch: {
+            phone : function(newValue,oldValue){
+                // console.log(newValue);
+                var phoneReg = /^1[34578]\d{9}$/;
+                if(phoneReg.test(newValue) == true) {
+                    phone.style.borderColor = 'green';
+                }else if(phoneReg.test(newValue) == false){
+                    phone.style.borderColor = 'red';
+                }
+            }
+        }
     }
 </script>
 <style  scoped>
+
+
+    .borderColor {
+        border-color:red
+    }
     .login{
     background: #fff;
     max-width: 530px;
@@ -129,7 +198,7 @@ form{
     top:2.6rem;
     width:0.24rem;
     height:0.24rem;
-    /* background: url(../images/eyeoff_wap_ui9.png)no-repeat; */
+    background: url(../../static/images/eyeoff_wap_ui9.png)no-repeat;
     background-size:100%;
 } 
 .yjj{
@@ -138,7 +207,7 @@ form{
     top:2.45rem;
     width:0.24rem;
     height:0.24rem;
-    /* background: url(../images/eyeoff_wap_ui9.png)no-repeat; */
+    background: url(../../static/images/eyeoff_wap_ui9.png)no-repeat;
     background-size:100%;
 }
 #line{
@@ -174,6 +243,12 @@ form{
     left:-0.1rem;
     top:0.05rem;
 }
+.btns {
+    width: 100%;
+    height:0.32rem;
+    display: flex;
+    justify-content: center;
+}
 .btn{
     width:2.16rem;
     border-radius: 0.05rem;
@@ -184,7 +259,6 @@ form{
     color: #fff;
     text-align: center;
     opacity: 0.5;
-    margin: 0 auto;
 }
 .line1{
     margin-top: 0.3rem;
@@ -210,7 +284,7 @@ form{
     text-align: center;
     padding:0 0.16rem;
     height:0.5rem;
-    z-index: -999;
+    /* z-index: -999; */
     background: #fff;
 }
 .line2>a{
