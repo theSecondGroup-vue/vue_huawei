@@ -39,11 +39,34 @@ export default new Router({
     {
       path: '/User',
       name: 'User',
-      component: User
+      component: User,
+      children: [
+        
+      ]
     },
     {
-      path: '/*',
+      path: '/',
       redirect: '/Home'
-    }
+    },
+    {
+      path:'/login',
+      name:'login',
+      component:()=> import('@/views/login.vue')
+    },
+    // {
+    //   path:'/regiter',
+    //   name:'register',
+    //   component:()=> import('@/views/register.vue')
+    // },
+    // {
+    //   path:'/regiter1',
+    //   name:'register1',
+    //   component:()=> import('@/views/register1.vue')
+    // },
+    // {
+    //   path:'/regiter2',
+    //   name:'register2',
+    //   component:()=> import('@/views/register2.vue')
+    // }
   ]
 })

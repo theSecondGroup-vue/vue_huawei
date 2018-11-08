@@ -1,6 +1,7 @@
 <template>
   <div class="Home">
-    123
+    <router-link :to="{name:'register'}">注册</router-link>
+    <router-link :to="{name:'login'}">登录</router-link>
   </div>
 </template>
 
