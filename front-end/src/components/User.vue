@@ -1,10 +1,10 @@
 <template>
   <div class="user">
     <!-- 头部 -->
-    <section class="userinfo">
+    <section class="userinfo" id="userinfo">
       <div class="users">
         <p class="u-bg"></p>
-        <div class="user-a">
+        <div class="user-a" v-if="isLogins">
           <p class="login-vip">
             <a href="#">
               <span>登录/注册</span>
@@ -15,6 +15,22 @@
             </a>
           </p>
         </div>
+
+        <div class="user-b" v-else>
+          <p class="phone">
+            <span id="back-phone" class="back-phone">1875656565</span>
+            <a href="#" class="phone-a">实名赚积分></a>
+          </p>
+          <p class="phone-text">
+            <a href="#" class="text-a">
+              <span class="text-power">
+                <i></i>
+                <em>查看我的权益</em>
+              </span>
+            </a>
+          </p>
+        </div>
+
         <div class="info-vip">
           <a href="#" class="short-cut"></a>
         </div>
@@ -46,14 +62,6 @@
 
     <!-- 我的订单 -->
     <section class="mytip">
-      <!-- <div class="tips">
-        <span class="mine">
-          我的订单
-        </span>
-        <span>
-          <a href="#" class="more-tips">全部订单</a>
-        </span>
-      </div> -->
       <five-tips></five-tips>
     </section>
 
@@ -158,7 +166,7 @@
         </h3>
       </div>
     </div>
-</div>
+  </div>
     <!-- 反馈 -->
     <div>
       <section class="bottom-area">
@@ -200,7 +208,7 @@
 import fiveTips from "../views/fiveTips.vue";
 import Vmall from "../views/Vmall.vue";
 import Mymsg from "../views/Mymsg.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "User",
@@ -226,28 +234,66 @@ export default {
           scoreNum: "-- 元"
         }
       ],
-      clickList:[
+      clickList: [
         {
-          imgs:'../../static/images/u-phone.png',
-          name:'手机版'
+          imgs: "../../static/images/u-phone.png",
+          name: "手机版"
         },
         {
-          imgs:'../../static/images/u-hand.png',
-          name:'触摸板'
+          imgs: "../../static/images/u-hand.png",
+          name: "触摸板"
         },
         {
-          imgs:'../../static/images/u-computer.png',
-          name:'电脑版'
+          imgs: "../../static/images/u-computer.png",
+          name: "电脑版"
         }
       ],
-      sysMessageList:[]
+      sysMessageList: [],
+      isLogins:true,
     };
   },
   components: {
     fiveTips,
     Vmall,
     Mymsg
-  }
+  },
+  methods: {
+    //判断是否登录
+      isLogin () {
+        var phone = localStorage.getItem('phone');
+        console.log(phone);
+        if (phone) {
+          console.log('有')
+          this.isLogins = false;
+          var num = this.getRand(0,20);
+          var price = this.getRand(0,10);
+          this.scoreUser[0].scoreNum = num + '分';
+          this.scoreUser[1].scoreNum = price + '张';
+          var tol = this.scoreUser[0].scoreNum.split('分')[0] * this.scoreUser[1].scoreNum.split('张')[0];
+          this.scoreUser[2].scoreNum = tol + '.00' + '元';
+        } else {
+          console.log(111);
+          this.isLogins = true;
+        }
+      },
+      getRand(startNum,endNum){
+        return Math.round(Math.random()*(endNum-startNum)) + startNum;
+      }
+
+    // handleScroll () {
+    //   var scrollTop = window.pageYOffset || document.documentElement.scrollTop ||document.body.scrollTop;
+    //   // var offsetTop = document.getElementById('userinfo').offsetHeight;
+    //   // console.log(scrollTop==offsetTop);
+    //   if(scrollTop >= 98) {
+    //     var a = document.getElementById('userinfo').getAttribute('opacity');
+    //     console.log(a);
+    //   }
+    // }
+  },
+  mounted () {
+    this.isLogin();
+    // window.addEventListener('scroll', this.handleScroll)
+  },
 };
 </script>
 
@@ -284,6 +330,83 @@ export default {
   left: 0.2rem;
   top: 0;
 }
+.user-b {
+  width: 1.83rem;
+  height: 0.6rem;
+  position: absolute;
+  left: 0.2rem;
+  top: 0;
+}
+.user-b .phone {
+  display: block;
+  width: 1.9rem;
+  height: 0.375rem;
+  padding: 0.08rem 0;
+  box-sizing: border-box;
+}
+.phone  .back-phone {
+  display: block;
+  font-size: 0.18rem;
+  color: #fff;
+  height: 100%;
+  width: 0.99rem;
+  float: left;
+}
+.phone  .phone-a {
+  display: block;
+  float: right;
+  opacity: 0.9;
+  color: #fff;
+  font-size: 0.12rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 0.05rem;
+  padding: 0 0.02rem;
+  box-sizing: border-box;
+  margin-left: 0.1rem;
+}
+.phone-text {
+  width: 100%;
+  height: 0.24rem;
+}
+.phone-text .text-a {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 0.22rem;
+  width: 1.05rem;
+  border-radius: 0.1rem;
+  background-color: #ffc63c;
+  border-bottom: 0.02rem solid #da9d40;
+  border-top: 0.02rem solid #fbd79e;
+}
+.phone-text .text-a .text-power {
+  display: block;
+  font-size: 0.5rem;
+  height: 100%;
+  color: #934200;
+  padding: 0 0.05rem;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+}
+.phone-text .text-a .text-power i {
+    width: 0.12rem;
+    height: 0.12rem;
+    display: block;
+    background: url(../../static/images/icon.png) no-repeat;
+    background-size: 0.12rem 0.12rem;
+    margin-right: 0.06rem;
+}
+.phone-text .text-a .text-power em {
+  height: 0.17rem;
+  width: 0.72rem;
+  line-height: 0.15rem;
+  align-self: center;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  font-size: 0.12rem;
+}
+
 .login-vip {
   padding: 0.16rem 0;
   display: block;
@@ -344,7 +467,7 @@ export default {
   border-radius: 50%;
   float: left;
   position: absolute;
-  bottom: -0.25rem;
+  bottom: -0.3rem;
   left: 50%;
   margin-left: -0.28rem;
   z-index: 10;
@@ -590,7 +713,8 @@ export default {
   height: 0.8rem;
   background: #fff;
 }
-.bottom-area .t3 a,.bottom-area .t3 p {
+.bottom-area .t3 a,
+.bottom-area .t3 p {
   color: #9b9b9b;
   font-size: 0.12rem;
 }

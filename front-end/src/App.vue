@@ -1,27 +1,6 @@
 <template>
-  <!-- <div id="app"> -->
 
     <router-view/>
-    <!-- <div class="footerBox">
-      <div class="footer">
-        <router-link to='/Home'>
-          <p>首页</p>
-        </router-link>
-        <router-link to='/List'>
-          <p>分类</p>
-        </router-link>
-        <router-link to='/Find'>
-          <p>发现</p>
-        </router-link>
-        <router-link to='/ShopCar'>
-          <p>购物车</p>
-        </router-link>
-        <router-link to='/User'>
-          <p>我的</p>
-        </router-link>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>

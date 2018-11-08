@@ -90,10 +90,12 @@ export default {
   methods: {
     isUser () {
       var user = localStorage.getItem('users')
+      console.log(user);
       if (user) {
         this.isLogin = true
       } else {
         this.isLogin = false
+        console.log(555);
       }
     },
     showNav () {
