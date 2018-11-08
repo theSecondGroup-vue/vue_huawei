@@ -9,7 +9,7 @@
     <div class="timerInfoBox">
       <div class="timer-bottom">
         <div  v-for="(item,index) in timerShopList" :key="index"  class="timer-list">
-          <a :href="'/Product?'+item.prdId">
+          <a :href="'#/Product?'+item.prdId">
             <img :src="'https://res.vmallres.com/pimages'+item.photoPath" :alt="item.sbomAbbr" width="100%">
              <!-- + item.photoName || '142_142_'+item.photoName -->
             <p>{{item.sbomAbbr}}</p>
