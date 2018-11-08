@@ -94,6 +94,7 @@ export default {
         this.isLogin = true
       } else {
         this.isLogin = false
+        console.log(555);
       }
     },
     showNav () {
