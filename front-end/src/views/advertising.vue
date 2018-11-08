@@ -45,7 +45,7 @@ export default {
         // this.nav = res.homeIndexTabConfigList
         var contentStr = res.advertisementInfos.wap_index_adsArea.content
         var content = JSON.parse(contentStr).compositeAds
-        console.log(content)
+        // console.log(content)
         for (var i = 0; i < content.length; i++) {
           // console.log(content[i].adPicUrl)
           this.adPicUrl.push(content[i].adPicUrl)

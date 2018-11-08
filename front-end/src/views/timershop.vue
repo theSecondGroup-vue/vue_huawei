@@ -8,7 +8,15 @@
     </h3>
     <div class="timerInfoBox">
       <div class="timer-bottom">
-        <div class="timer-list">
+        <div  v-for="(item,index) in timerShopList" :key="index"  class="timer-list">
+          <a :href="'/Product?'+item.prdId">
+            <img :src="'https://res.vmallres.com/pimages'+item.photoPath" :alt="item.sbomAbbr" width="100%">
+             <!-- + item.photoName || '142_142_'+item.photoName -->
+            <p>{{item.sbomAbbr}}</p>
+          </a>
+          <p class="fav">{{item.customizedPromo}}</p>
+        </div>
+        <!-- <div class="timer-list">
           <a href="#">
             <img src="https://res.vmallres.com/pimages/product/6901443215270/142_142_1531378553233mp.jpg" alt="" width="100%">
             <p>华为平板</p>
@@ -42,22 +50,27 @@
             <p>华为平板</p>
           </a>
           <p class="fav">最高直降28</p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
-      timerStr: ''
+      timerStr: '',
+      timerShopList: []
     }
   },
   methods: {
-    timer (date) {
+    timer () {
       var newDate = new Date()
-      var endDate = new Date(date)
+      var newY = newDate.getFullYear()
+      var newMon = newDate.getMonth()+1
+      var newM = newDate.getDate() + 1
+      var endDate = new Date(newY+'/'+newMon+'/'+newM)
       var countDowm = endDate - newDate
       var h = parseInt(countDowm / 1000 / 3600)
       var m = parseInt((countDowm / 1000 - h * 3600) / 60)
@@ -66,11 +79,29 @@ export default {
       m = m >= 10 ? m : '0' + m
       s = s >= 10 ? s : '0' + s
       this.timerStr = h + ':' + m + ':' + s
+    },
+    showInfo () {
+      const apiProxy = 'https://bird.ioliu.cn/v1/?url='
+      var url = 'https://openapi.vmall.com/mcp/home/getNewSeckillInfos?portal=2&lang=zh-CN&country=CN&callback=getNewSeckillInfos'
+      axios.get(apiProxy + url).then(result => {
+         var res = JSON.parse(result.data.split('getNewSeckillInfos(')[1].split(');')[0])
+        //  var res = JSON.parse(result.data.split('queryAdvertisement(')[1].split(');')[0])
+        var timerShop = res.seckillInfo
+         console.log(timerShop.seckillPrdList)
+         for(var i = 0 ; i < 6 ; i++){
+           if(i==2){
+             continue
+           }
+           this.timerShopList.push(timerShop.seckillPrdList[i])
+         }
+      })
     }
   },
   mounted () {
+    this.showInfo()
+    this.timer()
     setInterval(() => {
-      this.timer('2018/11/8')
+      this.timer()
     }, 1000)
   }
 }
@@ -108,7 +139,7 @@ export default {
   }
   .timerInfoBox {
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto;
     /* background: #F9F9F9; */
   }
   .timer-bottom {
@@ -127,6 +158,9 @@ export default {
   }
   .timer-list p{
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    padding:0 0.05rem;
   }
   .fav {
     color: #CA141D;
