@@ -7,6 +7,7 @@ import Find from '@/components/Find'
 import ShopCar from '@/components/ShopCar'
 import User from '@/components/User'
 import main from '@/views/main'
+import Product from '@/components/Product'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
           redirect: Home
         }
       ]
+    },
+    {
+      path: '/Product',
+      name: 'Product',
+      component: Product
     },
     {
       path: '/*',
