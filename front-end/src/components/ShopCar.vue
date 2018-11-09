@@ -5,7 +5,7 @@
       <h1>购物车</h1>
       <div v-show="isUserCar">
         <ul v-show="flag" class="operation">
-          <li>领券<span>|</span></li>
+          <li style="color:red">领券<span>|</span></li>
           <li @click="isFlag()">编辑</li>
         </ul>
         <ul v-show="!flag" class="operation">
@@ -148,9 +148,9 @@ export default {
       })
     },
     getLocal () {
-      var user = localStorage.getItem('user') || ''
-      var userCar = localStorage.getItem(user+'Car')
-      if(userCar) {
+      var phone = localStorage.getItem('phone') || ''
+      var phoneCar = localStorage.getItem(phone+'Car')
+      if(phoneCar) {
         console.log('商品存在，等待完善')
         this.isUserCar = true
       }else {

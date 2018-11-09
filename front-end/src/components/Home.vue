@@ -66,6 +66,39 @@
     </div>
     <timershop></timershop>
     <advertising></advertising>
+    <div>
+      <section class="bottom-area">
+        <!-- <p class="t1">
+          <a href="#" class="b-login">登录</a>
+          <a href="#" class="b-back">反馈</a>
+        </p> -->
+        <p class="t2">
+          <a href="#" class="ta" v-for="(item,index) in clickList"
+             :key="index"
+          >
+            <i class="imgs">
+              <img :src="item.imgs"/>
+            </i>
+            <span class="texts">
+              {{ item.name }}
+            </span>
+          </a>
+        </p>
+        <div class="t3">
+          <p class="po">
+            <a href="#">隐私政策</a>
+            <a href="#">用户协议</a>
+          </p>
+          <p class="pt">
+            <a href="#">苏ICP备17040376号-6</a>
+            <a href="#">苏公网安备32011402010009号</a>
+          </p>
+          <p class="ph">
+               Copyright © 2012-2018  VMALL.COM 版权所有
+          </p>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -80,7 +113,21 @@ export default {
     return {
       msg: '登录',
       isLogin: false,
-      nav: []
+      nav: [],
+      clickList: [
+        {
+          imgs: "../../static/images/u-phone.png",
+          name: "手机版"
+        },
+        {
+          imgs: "../../static/images/u-hand.png",
+          name: "触摸板"
+        },
+        {
+          imgs: "../../static/images/u-computer.png",
+          name: "电脑版"
+        }
+      ]
     }
   },
   components: {
@@ -89,12 +136,12 @@ export default {
   },
   methods: {
     isUser () {
-      var user = localStorage.getItem('user')
-      if (user) {
+      var phone = localStorage.getItem('phone')
+      if (phone) {
         this.isLogin = true
       } else {
         this.isLogin = false
-        console.log(555);
+        // console.log(555);
       }
     },
     showNav () {
@@ -276,4 +323,92 @@ export default {
   .more a{
     font-size: 0.16rem;
   }
+
+  .bottom-area {
+  height: 2.3rem;
+  width: 100%;
+  background-color: #ffffff;
+  margin-top: 0.1rem;
+  padding: 0 0.09rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: #fff;
+}
+.bottom-area .t1 {
+  padding: 0.05rem 0;
+  height: 0.28rem;
+  text-align: center;
+}
+.bottom-area .t1 a {
+  display: inline-block;
+  width: 0.85rem;
+  font-size: 0.16rem;
+  height: 0.34rem;
+  line-height: 0.32rem;
+  position: relative;
+}
+.bottom-area .t1 a:first-child:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -0.09rem;
+  height: 0.15rem;
+  width: 0;
+  border-right: 1px solid #eaeaea;
+}
+
+.bottom-area .t2 {
+  padding: 0.2rem 0;
+  height: 1rem;
+  box-sizing: border-box;
+}
+.bottom-area .t2 .ta {
+  display: inline-block;
+  width: 0.41rem;
+  height: 0.58rem;
+}
+.bottom-area .t2 .ta:nth-child(2) {
+  margin-left: 0.4rem;
+}
+.bottom-area .t2 .ta:nth-child(3) {
+  margin-left: 0.4rem;
+}
+.bottom-area .t2:before {
+  content: "";
+  display: block;
+  width: 200%;
+  position: relative;
+  top: -0.15rem;
+  border-top: 1px solid #eaeaea;
+  transform: scale(0.5);
+  transform-origin: left top;
+}
+
+.bottom-area .t2 .imgs {
+  display: block;
+  height: 0.4rem;
+  width: 0.4rem;
+}
+.bottom-area .t2 .imgs img {
+  width: 100%;
+}
+.bottom-area .t2 .texts {
+  display: block;
+  font-size: 0.12rem;
+  color: #9b9b9b;
+}
+
+.bottom-area .t3 {
+  height: 0.8rem;
+  background: #fff;
+}
+.bottom-area .t3 a,
+.bottom-area .t3 p {
+  color: #9b9b9b;
+  font-size: 0.12rem;
+}
+.bottom-area .t3 .po {
+  margin-bottom: 0.04rem;
+}
 </style>
