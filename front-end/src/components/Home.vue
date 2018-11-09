@@ -14,7 +14,7 @@
               <a href="#"></a>
             </li>
             <li v-else>
-              <a href="#">登录</a>
+              <a href="#/login">登录</a>
             </li>
           </ul>
         </div>

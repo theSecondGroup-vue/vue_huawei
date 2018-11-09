@@ -1,7 +1,6 @@
 <template>
     <div class="login">
         <div class="header">
-
             <div id='login'>
                     <div id="login-head">
                             <img src="../../static/images/wap_login_logo.png">
@@ -10,8 +9,12 @@
                     <div id="login-center">
                         <form>
                             <input type="text" placeholder="手机号/邮箱" id='phone' v-model="phone">
-                            <input type="password" placeholder='密码' id='psd' v-model="password" >
-                            <span class="yj"></span>
+                            <div id="ok">
+                            <input :type="type" placeholder='密码' id='psd' v-model="password" >
+                            <span :class="isClose" @click="closes()"></span>
+
+                            </div>
+                            <!-- <span class="yj"></span> -->
                         </form>
                         <div id="line">
                             <dl>
@@ -75,7 +78,9 @@
                 phone:'',
                 password:'',
                 emial:'',
-                succ: true
+                succ: true,
+                isClose: "close",
+                type: "password",
             }
         },
         methods:{
@@ -96,10 +101,21 @@
                         localStorage.setItem('phone',this.phone)
                         this.$router.push({name:'Home'})
                     }else{
-                        alert('登录失败',res.msg)
+                        alert(res.msg)
                     }
                 })
-            }
+            },
+            closes() {
+                    // alert(1)
+                    if (this.isClose == "close") {
+                        this.isClose = "close1";
+                        this.type = "text";
+                    } else {
+                        this.isClose = "close";
+                        this.type = "password";
+                    }
+                    // this.isClose = !this.isClose
+                    }
         },
         mounted () {
             // this.isTrue();
@@ -131,6 +147,15 @@
     margin: 0;
     padding: 0;
     line-height: 1.3;
+}
+body,html{
+    width:100%;
+    height:100%;
+
+}
+*{
+    padding: 0;
+    margin:0;
 }
 #login-head{
     padding: 0 0.16rem;
@@ -174,44 +199,58 @@ form{
     font-size:0.18rem;
     width:100%;
     height:0.34rem;
-    border-bottom: 1px solid #cccccc;
+
     position: relative;
 }
-.yj{
-    position: absolute;
-    right:0.4rem;
-    top:2.6rem;
-    width:0.24rem;
-    height:0.24rem;
-    background: url(../../static/images/eyeoff_wap_ui9.png)no-repeat;
-    background-size:100%;
+#ok{
+    width:100%;
+    /* padding:0 0.2rem; */
+    display: flex;
+    border-bottom: 1px solid #cccccc;
+    justify-content: space-between;
 }
-.yjj{
-    position: absolute;
-    right:0.4rem;
-    top:2.45rem;
-    width:0.24rem;
-    height:0.24rem;
-    background: url(../../static/images/eyeoff_wap_ui9.png)no-repeat;
-    background-size:100%;
+.close {
+
+left:-0.3rem;
+top:0.15rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  display: inline-block;
+  background: url(../../static/images/eyeoff_wap_ui9.png) no-repeat;
+  background-size: 100%;
+  position: relative;
+
+}
+.close1 {
+    left:-0.3rem;
+    top:0.15rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  display: inline-block;
+  background: url(../../static/images/eyeon_wap_ui9.png) no-repeat;
+  background-size: 100%;
+  position: relative;
+
 }
 #line{
     padding:0 0.16rem;
-
+  box-sizing: border-box;
     width:100%;
     overflow: hidden;
 }
 #line dl{
     overflow: hidden;
-    padding: 0.3rem 0;
+    width:100%;
 }
 #line dd{
     float: left;
     height:0.24rem;
     line-height: 0.24rem;
     font-size: 0.18rem;
+    padding: 0.3rem 0;
 }
 #line dt{
+    padding: 0.3rem 0;
     font-size: 0.18rem;
     float: right;
     height:0.24rem;
