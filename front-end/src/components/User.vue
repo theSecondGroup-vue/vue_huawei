@@ -261,7 +261,7 @@ export default {
     //判断是否登录
       isLogin () {
         var phone = localStorage.getItem('phone');
-        console.log(phone);
+        // console.log(phone);
         if (phone) {
           console.log('有')
           this.isLogins = false;
@@ -272,7 +272,7 @@ export default {
           var tol = this.scoreUser[0].scoreNum.split('分')[0] * this.scoreUser[1].scoreNum.split('张')[0];
           this.scoreUser[2].scoreNum = tol + '.00' + '元';
         } else {
-          console.log(111);
+          // console.log(111);
           this.isLogins = true;
         }
       },

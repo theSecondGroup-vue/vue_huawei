@@ -47,7 +47,7 @@ export default {
         var content = JSON.parse(contentStr).compositeAds
         // console.log(content)
         for (var i = 0; i < content.length; i++) {
-          console.log(content[i].adPrdUrl)
+          // console.log(content[i].adPrdUrl)
           this.adPicUrl.push(content[i].adPicUrl)
           this.adPrdUrl.push(content[i].adPrdUrl)
         }

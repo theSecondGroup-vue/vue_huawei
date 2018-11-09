@@ -204,7 +204,9 @@ export default {
           "originalPrice": this.shopInfo.originalPrice,
           "color": this.curTab1,
           "version":this.curTab2,
-          "count":this.count
+          "count":this.count,
+          "src":"https://res.vmallres.com/pimages"+this.shopInfo.photoPath
+          // https://res.vmallres.com/pimages/pages/rushBuy/1541604284269.png
         }
           var oldCarInfoStr = localStorage.getItem(phone+'Car')
           var oldCarInfo = JSON.parse(oldCarInfoStr)
@@ -230,7 +232,8 @@ export default {
           "originalPrice": this.shopInfo.originalPrice,
           "color": this.curTab1,
           "version":this.curTab2,
-          "count":this.count
+          "count":this.count,
+          "src":"https://res.vmallres.com/pimages"+this.shopInfo.photoPath
         }]
           var carInfoStr = JSON.stringify(carInfo)
           localStorage.setItem(phone+'Car',carInfoStr)

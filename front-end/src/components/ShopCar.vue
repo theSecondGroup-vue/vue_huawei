@@ -42,65 +42,26 @@
       </div>
       <div v-show="isUserCar" class="hasCarInfo">
         <ul>
-          <li>
+          <li v-for="(item,index) in phoneCar" :key="index">
             <div class="shopLeft">
-              <input type="checkbox" class="checkbox" name="price" :checked='checked'>
+              <input type="checkbox" class="checkbox"
+               @click="oneCheckout(item)"
+               :checked='item.isCheckbox'
+               v-model="item.isCheckbox">
             </div>
             <div class="shopRight">
               <div class="shopImg">
                 <a href="#">
-
+                  <img :src="item.src" alt="" width="100%">
                 </a>
               </div>
               <div class="shopCar-Info">
-                <p class='p-name'>华为畅享8 3GB+32BG 全网通标配版 （粉色）</p>
-                <span class="p-price">￥1099</span>
+                <p class='p-name'>{{item.sbomAbbr}} {{item.version}} （{{item.color}}）</p>
+                <span class="p-price">￥{{item.originalPrice}}</span>
                 <span class="count">
-                  <i class="symbol minus" @click="count--">-</i>
-                  <input type="text" value="1" readonly>
-                  <i class="symbol add" @click="count++">+</i>
-                </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="shopLeft">
-              <input type="checkbox" class="checkbox" name="price" :checked='checked'>
-            </div>
-            <div class="shopRight">
-              <div class="shopImg">
-                <a href="#">
-
-                </a>
-              </div>
-              <div class="shopCar-Info">
-                <p class='p-name'>华为畅享8 3GB+32BG 全网通标配版 （粉色）</p>
-                <span class="p-price">￥1099</span>
-                <span class="count">
-                  <i class="symbol minus" @click="count--">-</i>
-                  <input type="text" value="2" readonly>
-                  <i class="symbol add" @click="count++">+</i>
-                </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="shopLeft">
-              <input type="checkbox" class="checkbox" name="price" :checked='checked'>
-            </div>
-            <div class="shopRight">
-              <div class="shopImg">
-                <a href="#">
-
-                </a>
-              </div>
-              <div class="shopCar-Info">
-                <p class='p-name'>华为畅享8 3GB+32BG 全网通标配版 （粉色）</p>
-                <span class="p-price">￥1099</span>
-                <span class="count">
-                  <i class="symbol minus" @click="count--">-</i>
-                  <input type="text" value="1" readonly>
-                  <i class="symbol add" @click="count++">+</i>
+                  <i class="symbol minus" @click="item.count--">-</i>
+                  <input type="text" :value="item.count = (item.count == 0 ? 1 : item.count)" readonly>
+                  <i class="symbol add" @click="item.count++">+</i>
                 </span>
               </div>
             </div>
@@ -110,12 +71,16 @@
     </div>
     <div v-show="isUserCar" class="clonePrice">
       <div class="clonePrice-left">
-        <input type="checkbox" class='checkbox' v-model="checked_all" name="price">
+        <input type="checkbox" class='checkbox' :checked='checked_all' @click="allInput()">
       </div>
 
       <div class="clonePrice-right">
-        <span class="allPrcie">￥0</span>
-        <button  class="clonePrice-btn">购买</button>
+        <span class="allPrcie">￥{{totalPrice}}</span>
+        <button v-show="flag" class="clonePrice-btn">购买({{totalCount}})</button>
+        <button class="clonePrice-btn"
+         v-show="!flag"
+         @click="deleShop()"
+         >删除</button>
       </div>
     </div>
   </div>
@@ -128,11 +93,14 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      phoneCar:[],
       isUserCar: false,
       flag: true,
       product: [],
       // count: 1,
       checked_all: false,
+      totalPrice: 0,
+      totalCount: 0
     }
   },
   methods: {
@@ -141,7 +109,7 @@ export default {
       var url = 'https://openapi.vmall.com/mcp/cart/queryEptCartRecommendPrds?portal=2&lang=zh-CN&country=CN&callback=__jp3'
       axios.get(apiProxy + url).then(result => {
         var res = JSON.parse(result.data.split('__jp3(')[1].split(');')[0])
-        console.log(res.products);
+        // console.log(res.products);
         for(var i = 0 ; i < res.products.length ; i++){
           this.product.push(res.products[i])
         }
@@ -149,9 +117,11 @@ export default {
     },
     getLocal () {
       var phone = localStorage.getItem('phone') || ''
-      var phoneCar = localStorage.getItem(phone+'Car')
-      if(phoneCar) {
-        console.log('商品存在，等待完善')
+      var phoneCarStr = localStorage.getItem(phone+'Car')
+      if(phoneCarStr) {
+        // console.log('商品存在，等待完善',phoneCarStr)
+        this.phoneCar = JSON.parse(phoneCarStr)
+        // console.log(this.phoneCar)
         this.isUserCar = true
       }else {
         this.isUserCar = false
@@ -159,16 +129,86 @@ export default {
     },
     isFlag () {
       this.flag = !this.flag
+    },
+    oneCheckout (item) {
+      if(typeof item.isCheckbox == 'undefined'){
+        // console.log(1)
+        this.$set(item,'isCheckbox',true)
+      }else{
+        // console.log(2)
+        item.isCheckbox = !item.isCheckbox
+      }
+      this.allCheckout()
+    },
+    allCheckout () {
+      var flag = true
+      this.phoneCar.forEach(function(value,index) {
+        if(!value.isCheckbox){
+          flag = false
+        }
+      })
+      this.checked_all = flag ? true : false
+    },
+    allInput () {
+      this.checked_all = !this.checked_all
+      this.phoneCar.forEach((value,index) => {
+        value.isCheckbox = this.checked_all
+        // console.log(this.phoneCar)
+      })
+      this.allPrice()
+    },
+    allPrice () {
+      var pitchList = this.phoneCar.filter((el) => {
+        return el.isCheckbox
+      })
+      var totalPrice = 0;
+      var totalCount = 0;
+      for(var i = 0 ; i < pitchList.length ; i++){
+        totalCount += pitchList[i].count
+        totalPrice += pitchList[i].count * pitchList[i].originalPrice
+      }
+      this.totalCount = totalCount
+      this.totalPrice = totalPrice
+      // console.log(totalPrice)
+    },
+    deleShop () {
+       var pitchList = this.phoneCar.filter((el) => {
+        return el.isCheckbox
+      })
+      console.log(pitchList)
+      var phone = localStorage.getItem('phone') || ''
+      var phoneCarStr = localStorage.getItem(phone+'Car')
+      var phoneCar = JSON.parse(phoneCarStr)
+      for(var i = 0 ; i < phoneCar.length ; i++){
+        for(var j = 0 ; j < pitchList.length ; j++){
+          if(phoneCar[i].sbomAbbr == pitchList[j].sbomAbbr && phoneCar[i].color == pitchList[j].color && phoneCar[i].version == pitchList[j].version){
+            phoneCar.splice(i,1)
+          }
+          // console.log(2)
+        }
+      }
+      // console.log(phoneCar)
+      phoneCarStr = JSON.stringify(phoneCar)
+        if(phoneCar.length == 0){
+          localStorage.removeItem(phone+'Car')
+        }else{
+          localStorage.setItem(phone+'Car',phoneCarStr)
+        }
+        location.reload()
     }
   },
   computed: {
-    checked: function(){
-      return this.checked_all
-    }
+    // checked: function(){
+    //   return this.checked_all
+    // }
   },
   mounted () {
     this.showCar()
     this.getLocal()
+  },
+  updated () {
+    // console.log(1)
+    this.allPrice()
   }
 }
 </script>
@@ -323,7 +363,6 @@ export default {
     margin: 0.2rem 0;
     width: 1rem;
     height: 1rem;
-    background: #000;
   }
   .shopCar-Info {
     margin: 0.2rem 0;

@@ -25,6 +25,7 @@
 
 <script>
 import axios from "axios";
+// import { InfiniteScroll } from 'mint-ui';
 export default {
   data () {
     return {
@@ -50,7 +51,7 @@ export default {
         for(var i =1; i < result.length; i++) {
           this.findUl2s.push(result[i]);
         }
-        console.log(this.findUl2s);
+        // console.log(this.findUl2s);
       })
       .catch (err => {
         console.log(err);

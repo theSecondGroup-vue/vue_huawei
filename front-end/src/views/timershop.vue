@@ -87,7 +87,7 @@ export default {
          var res = JSON.parse(result.data.split('getNewSeckillInfos(')[1].split(');')[0])
         //  var res = JSON.parse(result.data.split('queryAdvertisement(')[1].split(');')[0])
         var timerShop = res.seckillInfo
-         console.log(timerShop.seckillPrdList)
+        //  console.log(timerShop.seckillPrdList)
          for(var i = 0 ; i < 6 ; i++){
            if(i==2){
              continue

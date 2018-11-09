@@ -73,7 +73,7 @@ export default {
           this.findInfos.push(result[i]);
         }
         this.first.push(result[0]);
-        console.log(this.first);
+        // console.log(this.first);
       })
       .catch (err => {
         console.log(err);

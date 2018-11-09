@@ -159,7 +159,7 @@ export default {
       // var url = 'https://openapi.vmall.com/mcp/getCategoryInfo?portal=2&lang=zh-CN&country=CN&callback=getCategoryInfo'
       axios.get('../../static/json/xxx.json').then(result => {
         // var res = JSON.parse(result.data.split('getCategoryInfo(')[1].split(');')[0])
-        console.log(result.data[0].subCategorys[0].subCategorys)
+        // console.log(result.data[0].subCategorys[0].subCategorys)
         // 为您推荐开始
         this.list = result.data
         this.banner = result.data[0].subCategorys[4].subCategorys
