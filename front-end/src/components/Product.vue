@@ -231,11 +231,26 @@ export default {
           console.log(carInfo.count)
           this.sumCount += parseInt(carInfo[0].count)
         }
+      },
+      showCount () {
+        var phone = localStorage.getItem('phone') || ''
+        var phoneCarStr = localStorage.getItem(phone+"Car")
+        if(phoneCarStr){
+          var sum = 0
+          var phoneCar = JSON.parse(phoneCarStr)
+          for(var i = 0 ; i < phoneCar.length ; i++){
+            // console.log(phoneCar[i].count)c
+            sum += phoneCar[i].count
+          }
+          // console.log(sum)
+          this.sumCount = sum
+        }
       }
   },
   mounted() {
     this.gitId()
     this.getInfo()
+    this.showCount()
   }
 
 };
