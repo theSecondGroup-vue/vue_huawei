@@ -19,7 +19,7 @@
         <div class="nologin">
           <i></i>
           <p>购物车中还没有商品，赶紧选购吧</p>
-          <button>去逛逛</button>
+          <a href="#/Home" class="btn-g">去逛逛</a>
         </div>
         <div class="carRec">
           <h2>热销推荐</h2>
@@ -270,15 +270,24 @@ export default {
     margin: 0.4rem auto 0.1rem;
     background-size: 100%;
   }
-  .nologin button {
+  .nologin .btn-g{
     display: block;
     width: 1rem;
     height: 0.4rem;
     margin: 0 auto;
+    text-align: center;
+    line-height: 0.4rem;
     border: 1px solid #CC252E;
     color: #CC252E;
     border-radius: 0.4rem;
   }
+  /* .nologin button a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 0.4rem;
+  } */
   .carRec h2 {
     font-weight: normal;
     padding: 0.1rem 0.2rem;

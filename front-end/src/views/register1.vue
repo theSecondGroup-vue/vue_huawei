@@ -50,7 +50,7 @@
         </dl>
         <div class="box1">
          <p v-if="isPwd" class="ispwd">密码不一致</p>
-         <input type="text" id='pswd1' placeholder='确认密码' @blur="issame" v-model="pwd">
+         <input type="password" id='pswd1' placeholder='确认密码' @blur="issame" v-model="pwd">
         </div>
     </form>
     <div class="top1">
@@ -63,7 +63,7 @@
         <p>若使用邮件地址注册，您仍需为帐号提供一个安全手机号用于验证身份。</p>
     </div>
     <div class="footer">
-       <p><span class="next"></span><a href="#/register">上一页</a></p> 
+       <p><span class="next"></span><a href="#/register">上一页</a></p>
        <p><a @click="handlregister">完成</a></p>
     </div>
     </div>
@@ -142,7 +142,7 @@ export default {
     reyz() {
         var Up = this.codeX.toUpperCase();
         var codeup = this.yzs.toUpperCase();
-      if ((codeup !== Up) || (codeup !== Lower)) {
+      if ((codeup !== Up)) {
           console.log(this.yzs)
         this.hyz = true;
       } else {

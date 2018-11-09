@@ -68,7 +68,7 @@ app.post('/register',function(req,res){
 	var body = '';
 
 	var client = mysql.createConnection({
-		host     : 'localhost',
+		host: '10.36.134.161',
 		user     : 'root',
 		password : '',
 		database : 'vue'
