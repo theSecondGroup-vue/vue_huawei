@@ -172,7 +172,7 @@
       <section class="bottom-area">
         <p class="t1">
           <router-link to="/login" v-if="isLogins">登录</router-link>
-          <router-link to="/User" v-else>
+          <router-link to="" v-else>
                 <span @click="logout">退出</span>
           </router-link>
           <a href="#" class="b-back">反馈</a>

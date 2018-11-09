@@ -68,6 +68,20 @@
           </li>
         </ul>
       </div>
+      <!-- <div v-show="isUserCar" class="clonePrice">
+        <div class="clonePrice-left">
+          <input type="checkbox" class='checkbox' :checked='checked_all' @click="allInput()">
+        </div>
+
+        <div class="clonePrice-right">
+          <span class="allPrcie">￥{{totalPrice}}</span>
+          <button v-show="flag" class="clonePrice-btn">购买({{totalCount}})</button>
+          <button class="clonePrice-btn"
+          v-show="!flag"
+          @click="deleShop()"
+          >删除</button>
+        </div>
+      </div> -->
     </div>
     <div v-show="isUserCar" class="clonePrice">
       <div class="clonePrice-left">
@@ -84,6 +98,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -228,6 +243,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     /* top:0; */
+    z-index: 999;
     padding:0 0.2rem;
     justify-content: space-between;
     background: #fff;
@@ -417,11 +433,12 @@ export default {
   }
   .clonePrice {
     box-sizing: border-box;
+    z-index: 100;
     width: 100%;
     height: 0.53rem;
     padding:0 0 0 0.13rem;
     background: #fff;
-    position: absolute;
+    position: fixed;
     bottom: 0.53rem;
     display: flex;
     justify-content: space-between;
