@@ -4,7 +4,7 @@
             <li class="f-li" v-for="(item,index) in findUl2s"
                 :key="index"
             >
-                <a href="#" class="f-la">
+                <a href="https://m.vmall.com/content/detail?id=1954" class="f-la">
                     <p class="f-limg">
                         <img :src="'https://res.vmallres.com/pimages//' + item.thumbnail"/>
                     </p>

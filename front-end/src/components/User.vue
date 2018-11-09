@@ -7,7 +7,7 @@
         <div class="user-a" v-if="isLogins">
           <p class="login-vip">
             <a href="#">
-              <span>登录/注册</span>
+              <router-link to="/login" tag="span">登录/注册</router-link>
               <i class="arrow"></i>
             </a>
             <a href="#" class="more-vip">
@@ -18,7 +18,7 @@
 
         <div class="user-b" v-else>
           <p class="phone">
-            <span id="back-phone" class="back-phone">1875656565</span>
+            <span id="back-phone" class="back-phone">{{phones}}</span>
             <a href="#" class="phone-a">实名赚积分></a>
           </p>
           <p class="phone-text">
@@ -171,7 +171,10 @@
     <div>
       <section class="bottom-area">
         <p class="t1">
-          <a href="#" class="b-login">登录</a>
+          <router-link to="/login" v-if="isLogins">登录</router-link>
+          <router-link to="/User" v-else>
+                <span @click="logout">退出</span>
+          </router-link>
           <a href="#" class="b-back">反馈</a>
         </p>
         <p class="t2">
@@ -250,6 +253,7 @@ export default {
       ],
       sysMessageList: [],
       isLogins:true,
+      phones:''
     };
   },
   components: {
@@ -258,12 +262,10 @@ export default {
     Mymsg
   },
   methods: {
-    //判断是否登录
+      //判断是否登录
       isLogin () {
         var phone = localStorage.getItem('phone');
-        console.log(phone);
         if (phone) {
-          console.log('有')
           this.isLogins = false;
           var num = this.getRand(0,20);
           var price = this.getRand(0,10);
@@ -272,27 +274,34 @@ export default {
           var tol = this.scoreUser[0].scoreNum.split('分')[0] * this.scoreUser[1].scoreNum.split('张')[0];
           this.scoreUser[2].scoreNum = tol + '.00' + '元';
         } else {
-          console.log(111);
           this.isLogins = true;
         }
       },
+      //获取随机数
       getRand(startNum,endNum){
         return Math.round(Math.random()*(endNum-startNum)) + startNum;
-      }
+      },
+      //退出登录
+      logout () {
+        localStorage.removeItem('phone');
+        location.reload();
+        // this.$router.push('login','login');
+      },
+      //电话号码的代替
+      hidtel () {
+        var str=localStorage.getItem('phone');
+        if (str) {
+          var str2 = str.substr(0,3) + "****" + str.substr(7);
+          this.phones = str2;
+        } else{
+          console.log('phone不存在')
+        }
 
-    // handleScroll () {
-    //   var scrollTop = window.pageYOffset || document.documentElement.scrollTop ||document.body.scrollTop;
-    //   // var offsetTop = document.getElementById('userinfo').offsetHeight;
-    //   // console.log(scrollTop==offsetTop);
-    //   if(scrollTop >= 98) {
-    //     var a = document.getElementById('userinfo').getAttribute('opacity');
-    //     console.log(a);
-    //   }
-    // }
+      }
   },
   mounted () {
     this.isLogin();
-    // window.addEventListener('scroll', this.handleScroll)
+    this. hidtel();
   },
 };
 </script>

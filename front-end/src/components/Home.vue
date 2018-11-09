@@ -89,8 +89,8 @@ export default {
   },
   methods: {
     isUser () {
-      var user = localStorage.getItem('user')
-      if (user) {
+      var phone = localStorage.getItem('phone')
+      if (phone) {
         this.isLogin = true
       } else {
         this.isLogin = false

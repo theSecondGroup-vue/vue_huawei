@@ -5,7 +5,7 @@
                 <li v-for="(item,index) in findLists"
                     :key="index"
                 >
-                    <a href="#" class="mall">
+                    <a href="https://m.vmall.com/content/category" class="mall">
                         <p class="mallImg">
                             <img :src="item.pic"/>
                         </p>

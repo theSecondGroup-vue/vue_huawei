@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="header">
-        
+
             <div id='login'>
                     <div id="login-head">
                             <img src="../../static/images/wap_login_logo.png">
@@ -23,14 +23,14 @@
                                     <input type="checkbox" id='check'>记住勾选
                                 </dt>
                             </dl>
-                            
+
                         </div>
                         <div class="btns">
                              <button class="btn" @click='handlelogin'>
                                 登录
                             </button>
                         </div>
-                       
+
                         <div class="line1">
                             <a href="#/register">注册账号</a>
                             <a href="#">忘记密码</a>
@@ -38,7 +38,7 @@
                         <div class="line2">
                             <a href=""><img src="../../static/images/wap_qq_emui9.png"></a>
                             <a href="#"><img src="../../static/images/wap_alipay_emui9.png"></a>
-                            
+
                         </div>
                         <div id="nothing">
                             <a href="#">更多</a>
@@ -64,7 +64,7 @@
                 </p>
             </div>
         </div>
-    
+
     </div>
 </template>
 <script>
@@ -79,30 +79,15 @@
             }
         },
         methods:{
-            // isTrue () {
-            //     var phone = document.getElementById('phone');
-            //     phone.onblur = function () {
-            //     var phones = this.phone;
-            //     var phoneReg = /^1[34578]\d{9}$/;
-
-            //         if (phoneReg.test(phones) == true) {
-            //             phone.style.borderColor = 'green';
-            //             this.succ = true;
-            //         } else if (phoneReg.test(phones) == false) {
-            //             phone.style.borderColor = 'red';
-            //             this.succ = false;
-            //         }
-            //     }
-            // },
             handlelogin(){
-                
+
                 this.$axios.post('http://localhost:3000/login',{
-                    phone:this.phone,
+                      phone:this.phone,
                       password:this.password
 
                     },{
-                  
-                   
+
+
                 }).then(result =>{
                     var res=result.data;
                     console.log(res);
@@ -158,7 +143,7 @@
    width: 0.49rem;
    height:0.49rem;
   position: relative;
-  
+
 }
 #login-head h1{
     margin-top: 0.3rem;
@@ -169,24 +154,24 @@
 input{
     outline: medium;
     border:0;
-  
+
 }
 form{
-   
+
     margin-top: 0.3rem;
     overflow: hidden;
     padding:0 0.16rem;
 }
 #phone{
 
-    font-size:0.18rem; 
+    font-size:0.18rem;
     width:100%;
     height:0.34rem;
     border-bottom: 1px solid #cccccc;
 }
 #psd{
     margin-top: 0.2rem;
-    font-size:0.18rem; 
+    font-size:0.18rem;
     width:100%;
     height:0.34rem;
     border-bottom: 1px solid #cccccc;
@@ -200,7 +185,7 @@ form{
     height:0.24rem;
     background: url(../../static/images/eyeoff_wap_ui9.png)no-repeat;
     background-size:100%;
-} 
+}
 .yjj{
     position: absolute;
     right:0.4rem;
@@ -212,7 +197,7 @@ form{
 }
 #line{
     padding:0 0.16rem;
-  
+
     width:100%;
     overflow: hidden;
 }
@@ -271,11 +256,11 @@ form{
 .line1>a{
     display: block;
     width:100%;
-    margin-top:0.1rem; 
+    margin-top:0.1rem;
     font-size: 0.12rem;
     text-align: center;
-    color: blue;  
-   
+    color: blue;
+
 }
 .line2{
     position: relative;
@@ -288,13 +273,13 @@ form{
     background: #fff;
 }
 .line2>a{
-   
+
     margin: 0 auto;
     display: inline-block;
     margin:0 0.1rem;
 }
 .line2>a img{
-    
+
     width:0.4rem;
     height:0.4rem;
 }
@@ -308,7 +293,7 @@ form{
     text-align: center;
     width:100%;
     font-size: 0.15rem;
-    color: blue;  
+    color: blue;
 
 }
 .anthing{
@@ -332,13 +317,13 @@ form{
     z-index: 99;
 }
 .login-foot{
-margin-top:0.3rem; 
+margin-top:0.3rem;
     width:100%;
-    
+
 
 }
 .login-foot p{
-    width:100%;  
+    width:100%;
     text-align: center;
     font-size: 0.14rem;
 }
