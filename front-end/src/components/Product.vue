@@ -2,7 +2,7 @@
   <div class="product">
     <header>
       <div class="back">
-        <a></a>
+        <a href="#/Home"></a>
       </div>
       <ul class="hd-nav">
         <li v-for="(item,index) in head" :key="index" :class="{'current': curTab === item.name }" @click="curTab = item.name"><a>{{item.name}}</a></li>
@@ -14,18 +14,18 @@
     </header>
     <div class="banner" style="padding:0.0575rem 0 ">
       <mt-swipe :show-indicators="true">
-        <mt-swipe-item><img src="../../static/images/banner1.jpg" alt="" width="100%" height="100%"></mt-swipe-item>
-        <mt-swipe-item><img src="../../static/images/banner2.jpg" alt="" width="100%" height="100%"></mt-swipe-item>
-        <mt-swipe-item><img src="../../static/images/banner3.jpg" alt="" width="100%" height="100%"></mt-swipe-item>
-        <mt-swipe-item><img src="../../static/images/banner4.png" alt="" width="100%" height="100%"></mt-swipe-item>
-        <mt-swipe-item><img src="../../static/images/banner5.png" alt="" width="100%" height="100%"></mt-swipe-item>
-        <mt-swipe-item><img src="../../static/images/banner6.png" alt="" width="100%" height="100%"></mt-swipe-item>
-        <mt-swipe-item><img src="../../static/images/banner7.png" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img :src="'https://res.vmallres.com/pimages'+shopInfo.photoPath" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img src="https://res.vmallres.com/pimages//product/6901443261482//428_428_1536627883158mp.jpg" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img src="https://res.vmallres.com/pimages//product/6901443267248/group//428_428_1540544176527.png" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img src="https://res.vmallres.com/pimages//product/6901443270521/group//428_428_1540524852961.png" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img src="https://res.vmallres.com/pimages//product/6901443232413//428_428_1535358175728mp.jpg" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img src="https://res.vmallres.com/pimages//product/6901443210220//428_428_1511858765170mp.jpg" alt="" width="100%" height="100%"></mt-swipe-item>
+        <mt-swipe-item><img src="https://res.vmallres.com/pimages//product/6901443270279//428_428_1540353235542mp.png" alt="" width="100%" height="100%"></mt-swipe-item>
       </mt-swipe>
     </div>
     <div class="title">
-      <h1>荣耀8X 千元屏霸 高屏占比 2000万AI双摄 {{curTab2}}（{{curTab1}}）</h1>
-      <p>￥ 1399</p>
+      <h1>【{{shopInfo.customizedPromo}}】 {{shopInfo.sbomAbbr}} {{curTab2}}（{{curTab1}}）</h1>
+      <p>￥ {{shopInfo.originalPrice}}</p>
       <div :class="{'detail-a':!isA,'detail-b':isA}" >
         <span>送半入耳式耳机！购新机送价值328元豪华礼包（活动结束后站内信发放）！得双倍积分（积分可抵现）</span> <i style="font-style:normal;">千元屏霸 91%屏占比 2000万AI双摄</i>
         <i class="detail_more" :class="{'detail_more-a':!isA,'detail_more-b':isA}" @click="toggle"></i>
@@ -83,7 +83,7 @@
         <div style="position:relative;">
           <a style="background-image: url(../../static/images/p_shoppingCart.png)"></a>
           <p>购物车</p>
-          <i id="cartNum">1</i>
+          <i id="cartNum" v-show="sumCount!=0">{{sumCount}}</i>
         </div>
         <div>
           <a style="background-image: url(../../static/images/p_service.png)"></a>
@@ -92,7 +92,7 @@
       </div>
       <div class="ft-right">
         <div>
-          <a>加入购物车</a>
+          <a href="javasciprt:;" @click="addCar">加入购物车</a>
           <a style="background-color: #ca151e;box-shadow: 0 0 0 1rem #ca151e inset;">立即购买</a>
         </div>
       </div>
@@ -107,6 +107,7 @@ export default {
   data() {
     return {
       count: 1,
+      sumCount:0,
       isA:false,
       head: [
         {
@@ -152,7 +153,9 @@ export default {
         {
           name:'全网通 8GB+128GB'
         }
-      ]
+      ],
+      id: '',
+      shopInfo: []
     }
   },
   methods:{
@@ -165,7 +168,74 @@ export default {
         }else{
           this.count--;
         }
+      },
+      gitId (){
+        var idStr = location.href
+        var id = idStr.split("?")[1]
+        this.id = id
+      },
+      getInfo (){
+        const apiProxy = 'https://bird.ioliu.cn/v1/?url='
+        var url = 'https://openapi.vmall.com/mcp/home/getNewSeckillInfos?portal=2&lang=zh-CN&country=CN&callback=getNewSeckillInfos'
+        axios.get(apiProxy + url).then(result=>{
+          var res = JSON.parse(result.data.split('getNewSeckillInfos(')[1].split(');')[0])
+          var list = res.seckillInfo.seckillPrdList
+          // console.log(list)
+          for(var i = 0 ; i < list.length ; i++){
+            if(list[i].prdId == this.id){
+                console.log(list[i]);
+                this.shopInfo = list[i]
+            }
+          }
+        });
+
+      },
+      addCar () {
+        var phone = localStorage.getItem('phone') || ''
+        if(localStorage.getItem(phone+'Car')){
+          var carInfo = {
+          "sbomAbbr":this.shopInfo.sbomAbbr,
+          "originalPrice": this.shopInfo.originalPrice,
+          "color": this.curTab1,
+          "version":this.curTab2,
+          "count":this.count
+        }
+          var oldCarInfoStr = localStorage.getItem(phone+'Car')
+          var oldCarInfo = JSON.parse(oldCarInfoStr)
+          // console.log(oldCarInfo)
+          for(var i = 0 ; i < oldCarInfo.length ; i++){
+            if(oldCarInfo[i].sbomAbbr == carInfo.sbomAbbr && oldCarInfo[i].color == carInfo.color && oldCarInfo[i].version == carInfo.version){
+              oldCarInfo[i].count+= carInfo.count
+              var newCarInfoStr = JSON.stringify(oldCarInfo)
+              // console.log(newCarInfoStr)
+              localStorage.setItem(phone+'Car',newCarInfoStr)
+              this.sumCount = carInfo.count + this.sumCount
+              return
+            }
+          }
+          oldCarInfo.push(carInfo)
+          // console.log(newCarInfo)
+          newCarInfoStr = JSON.stringify(oldCarInfo)
+          localStorage.setItem(phone+'Car',newCarInfoStr)
+          this.sumCount += carInfo.count
+        }else{
+          carInfo = [{
+          "sbomAbbr":this.shopInfo.sbomAbbr,
+          "originalPrice": this.shopInfo.originalPrice,
+          "color": this.curTab1,
+          "version":this.curTab2,
+          "count":this.count
+        }]
+          var carInfoStr = JSON.stringify(carInfo)
+          localStorage.setItem(phone+'Car',carInfoStr)
+          console.log(carInfo.count)
+          this.sumCount += parseInt(carInfo[0].count)
+        }
       }
+  },
+  mounted() {
+    this.gitId()
+    this.getInfo()
   }
 
 };
@@ -459,7 +529,7 @@ footer{
 }
 .ft-left div p{
     color: #888;
-    padding-top: 0.048rem;
+    padding-top: 0.02rem;
 }
 .ft-right div{
     position: relative;
