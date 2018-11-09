@@ -16,7 +16,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'main',
+      // name: 'main',
       component: main,
       children: [
         {
@@ -80,5 +80,12 @@ export default new Router({
       path: '/*',
       redirect: '/Home'
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return {
+      x: 0,
+      y: 0
+    }
+  }
+
 })

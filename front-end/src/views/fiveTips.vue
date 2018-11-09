@@ -4,22 +4,31 @@
         <span class="mine">
           我的订单
         </span>
-        <span>
+        <span @click="isLogins" v-if="!isLogin1">
           <a href="#" class="more-tips">全部订单</a>
         </span>
       </div>
         <ul class="my-row">
             <li v-for="(item,index) in fiveList"
                 :key="index"
+                @click="isLogins"
             >
-                <a href="#" class="myrowTip">
+                <router-link to="/login" class="myrowTip" v-if="isLogin2">
+                    <p class="myrowImg">
+                            <img :src="item.src"/>
+                    </p>
+                    <p class="myMoney">
+                    {{item.name}}
+                    </p>
+                </router-link>
+                <router-link to="/User" class="myrowTip" v-else>
                     <p class="myrowImg">
                         <img :src="item.src"/>
                     </p>
                     <p class="myMoney">
                     {{item.name}}
                     </p>
-                </a>
+                </router-link>
             </li>
         </ul>
     </div>
@@ -29,6 +38,8 @@
 export default {
   data() {
     return {
+      isLogin1:false,
+      isLogin2:false,
       fiveList: [
         {
           src:
@@ -56,9 +67,32 @@ export default {
           name: "回收单"
         }
       ]
-    };
-  }
-};
+    }
+  },
+  methods: {
+    isLogins () {
+        var phone = localStorage.getItem('phone');
+        if (phone) {
+          this.isLogin2 = true;
+          this.$router.push('User','/User');
+        } else {
+          this.isLogin2 = false;
+          this.$router.push('login','/login')
+        }
+      },
+      isLoginto () {
+        var phone = localStorage.getItem('phone');
+        if (phone) {
+          this.isLogin1 = true;
+          this.$router.push('User','/User');
+        } else {
+          this.isLogin1 = false;
+          this.$router.push('login','/login')
+        }
+      }
+    }
+
+}
 </script>
 
 <style scoped>

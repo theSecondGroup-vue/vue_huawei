@@ -22,7 +22,7 @@
       </div>
       <!-- 大图 -->
       <div class="f-news">
-        <a href="#" class="fb-news" v-for="(item,index) in first"
+        <a href="https://m.vmall.com/content/detail?id=2016" class="fb-news" v-for="(item,index) in first"
            :key="index"
         >
           <p class="fb-img">

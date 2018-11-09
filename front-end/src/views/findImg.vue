@@ -4,7 +4,7 @@
             <li v-for="(item,index) in findImgs"
                 :key="index"
             >
-                <a href="#" class="f-newsa">
+                <a href="https://m.vmall.com/content/category?type=5" class="f-newsa">
                     <img :src="item.pic"/>
                 </a>
             </li>
