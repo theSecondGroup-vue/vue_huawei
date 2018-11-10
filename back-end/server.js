@@ -21,7 +21,7 @@ app.post('/login', function (req, res) {
 	var body = '';
 
 	var client = mysql.createConnection({
-		host     : '10.36.134.161',
+		host     : '10.36.134.154',
 		user     : 'root',
 		password : '',
 		database : 'vue'
@@ -68,7 +68,7 @@ app.post('/register',function(req,res){
 	var body = '';
 
 	var client = mysql.createConnection({
-		host: '10.36.134.161',
+		host: '10.36.134.154',
 		user     : 'root',
 		password : '',
 		database : 'vue'

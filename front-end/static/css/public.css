@@ -17,3 +17,10 @@ b,stong{ font-weight:normal;}
 .border0{border:0;}
 .fl{ float:left;}
 .fr{ float:right;}
+/*去掉input自动补全后的黄色样式*/
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+	-webkit-transition-delay: 99999s;
+	-webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+	outline: none;
+/* -webkit-box-shadow: 0 0 0px 1000px white inset; */
+}

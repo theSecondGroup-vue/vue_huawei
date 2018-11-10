@@ -107,7 +107,7 @@ export default {
             console.log("注册成功");
             this.$router.push({ name: "login" });
           } else {
-              alert('请正确填写表单')
+              alert(res.msg)
             console.log("注册失败", res.msg);
           }
         });

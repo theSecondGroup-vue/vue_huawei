@@ -90,7 +90,10 @@
 
       <div class="clonePrice-right">
         <span class="allPrcie">￥{{totalPrice}}</span>
-        <button v-show="flag" class="clonePrice-btn">购买({{totalCount}})</button>
+        <!-- <button v-show="flag" class="clonePrice-btn">购买({{totalCount}})</button> -->
+        <mt-button class="clonePrice-btn"
+          v-show="flag"
+          @click.native="showPopout" >购买({{totalCount}})</mt-button>
         <button class="clonePrice-btn"
          v-show="!flag"
          @click="deleShop()"
@@ -98,11 +101,11 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import axios from 'axios'
+import { Toast } from '../../node_modules/mint-ui'
 export default {
   name: 'ShopCar',
   data () {
@@ -210,6 +213,12 @@ export default {
           localStorage.setItem(phone+'Car',phoneCarStr)
         }
         location.reload()
+    },
+    showPopout () {
+      this.$toast({
+        message: '功能未完善',
+        daration: 2000,
+      })
     }
   },
   computed: {
@@ -220,6 +229,7 @@ export default {
   mounted () {
     this.showCar()
     this.getLocal()
+    // console.log(this.$children)
   },
   updated () {
     // console.log(1)
